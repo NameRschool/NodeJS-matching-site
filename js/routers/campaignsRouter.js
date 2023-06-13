@@ -1,3 +1,5 @@
+const { Donor, Campaign, Group } = require('./schema');
+
 const express = require('express');
 const campaignsRouter = express.Router();
 
