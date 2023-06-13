@@ -2,54 +2,53 @@ const { Donor, Campaign, Group } = require('./schema');
 const express = require('express');
 const groupsRouter = express.Router();
 
-const createGroup = async (data) => {
+groupsRouter.post('/groups', async (req, res) => {
   try {
-    const newGroup = new Group(data);
+    const newGroup = new Group(req.body);
     await newGroup.save();
     console.log('Group saved successfully');
-    return newDonor;
+    res.json(newGroup);
   } catch (error) {
     console.error('Failed to save group', error);
-    throw error;
+    res.status(500).json({ error: 'Failed to save group' });
   }
-};
+});
 
-const getGroups = async () => {
+groupsRouter.get('/groups', async (req, res) => {
   try {
     const groups = await Group.find();
-    console.log('Retrieved group:', groups);
-    return groups;
+    console.log('Retrieved groups:', groups);
+    res.json(groups);
   } catch (error) {
     console.error('Failed to retrieve groups', error);
-    throw error;
+    res.status(500).json({ error: 'Failed to retrieve groups' });
   }
-};
+});
 
-const updateGroup = async (query, update) => {
+groupsRouter.put('/groups/:id', async (req, res) => {
   try {
+    const query = { _id: req.params.id };
+    const update = req.body;
     await Group.updateOne(query, update);
     console.log('Group updated successfully');
+    res.json({ message: 'Group updated successfully' });
   } catch (error) {
     console.error('Failed to update group', error);
-    throw error;
+    res.status(500).json({ error: 'Failed to update group' });
   }
-};
+});
 
-const deleteGroup = async (query) => {
+groupsRouter.delete('/groups/:id', async (req, res) => {
   try {
-    await Donor.deleteOne(query);
+    const query = { _id: req.params.id };
+    await Group.deleteOne(query);
     console.log('Group deleted successfully');
+    res.json({ message: 'Group deleted successfully' });
   } catch (error) {
     console.error('Failed to delete group', error);
-    throw error;
+    res.status(500).json({ error: 'Failed to delete group' });
   }
-};
-
-module.exports = {
-  createGroup,
-  getGroups,
-  updateGroup,
-  deleteGroup,
-};
+});
 
 module.exports = groupsRouter;
+
