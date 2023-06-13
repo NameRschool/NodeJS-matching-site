@@ -1,8 +1,8 @@
-const { Donor, Campaign, Group } = require('./schema');
+const { Donor, Campaign, Group } = require('./../functions/schema');
 const express = require('express');
 const groupsRouter = express.Router();
 
-groupsRouter.post('/groups', async (req, res) => {
+groupsRouter.post('/', async (req, res) => {
   try {
     const newGroup = new Group(req.body);
     await newGroup.save();
@@ -14,7 +14,7 @@ groupsRouter.post('/groups', async (req, res) => {
   }
 });
 
-groupsRouter.get('/groups', async (req, res) => {
+groupsRouter.get('/', async (req, res) => {
   try {
     const groups = await Group.find();
     console.log('Retrieved groups:', groups);
@@ -25,7 +25,7 @@ groupsRouter.get('/groups', async (req, res) => {
   }
 });
 
-groupsRouter.put('/groups/:id', async (req, res) => {
+groupsRouter.put('/:id', async (req, res) => {
   try {
     const query = { _id: req.params.id };
     const update = req.body;
@@ -38,7 +38,7 @@ groupsRouter.put('/groups/:id', async (req, res) => {
   }
 });
 
-groupsRouter.delete('/groups/:id', async (req, res) => {
+groupsRouter.delete('/:id', async (req, res) => {
   try {
     const query = { _id: req.params.id };
     await Group.deleteOne(query);

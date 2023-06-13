@@ -1,80 +1,61 @@
-const { Donor, Campaign, Group } = require('./schema');
+const { Donor, Campaign, Group } = require('./../functions/schema');
 const express = require('express');
 const donorsRouter = express.Router();
 
-const createDonor = async (data) => {
+
+
+donorsRouter.post('/', async (req, res) => {
   try {
-    const newDonor = new Donor(data);
+   
+    const newDonor = new Donor(req.body);
     await newDonor.save();
     console.log('Donor saved successfully');
-    return newDonor;
+    res.json(newDonor);
   } catch (error) {
     console.error('Failed to save donor', error);
-    throw error;
+    res.status(500).json({ error: 'Failed to save donor' });
   }
-};
+});
 
-const getDonors = async () => {
+donorsRouter.get('/', async (req, res) => {
   try {
-    const donors = await Donor.find();
+    console.log("nn")
+    const donors = await Group.find();
     console.log('Retrieved donors:', donors);
-    return donors;
+    res.json(donors);
   } catch (error) {
     console.error('Failed to retrieve donors', error);
-    throw error;
+    res.status(500).json({ error: 'Failed to retrieve donors' });
   }
-};
+});
 
-const updateDonor = async (query, update) => {
+donorsRouter.put('/:id', async (req, res) => {
   try {
+    const query = { _id: req.params.id };
+    const update = req.body;
     await Donor.updateOne(query, update);
     console.log('Donor updated successfully');
+    res.json({ message: 'Donor updated successfully' });
   } catch (error) {
     console.error('Failed to update donor', error);
-    throw error;
+    res.status(500).json({ error: 'Failed to update donor' });
   }
-};
+});
 
-const deleteDonor = async (query) => {
+donorsRouter.delete('/:id', async (req, res) => {
   try {
+    const query = { _id: req.params.id };
     await Donor.deleteOne(query);
     console.log('Donor deleted successfully');
+    res.json({ message: 'Donor deleted successfully' });
   } catch (error) {
     console.error('Failed to delete donor', error);
-    throw error;
+    res.status(500).json({ error: 'Failed to delete donor' });
   }
-};
-
-module.exports = {
-  createDonor,
-  getDonors,
-  updateDonor,
-  deleteDonor,
-};
-//const Donor = mongoose.model('Donor', donorSchema);
-// // Route for getting donors and their contributions
-// donorsRouter.get('/', (req, res) => {
-//   // Retrieve campaign donors and contributions from the database
-//   // ...
-//   console.log("hi Donors")
-//   const donors = database.getDonors(); // Replace with your actual database query or operation
-//    // Return the campaign donors and contributions
-//    res.json(donors);
-//  });
-
-//  donorsRouter.post('/', (req, res) => {
-//   console.log("hi")
-
-//   // Create a new donor
-//   // Return response
-// });
-
-// donorsRouter.get('/:id', (req, res) => {
-//   // Get a specific donor by ID
-//   console.log("hi")
-//   // Return response
-// });
-
-
+});
 
 module.exports = donorsRouter;
+
+
+
+

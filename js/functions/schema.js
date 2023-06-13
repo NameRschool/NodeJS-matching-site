@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const donorSchema = new Schema({
     name: String,
     email: String,
@@ -9,7 +10,8 @@ const donorSchema = new Schema({
   const campaignsSchema = new Schema({
     date: Date,
     destination: String,
-    time: String
+    time: String,
+    managerName: String
     
   });
 
@@ -19,8 +21,12 @@ const donorSchema = new Schema({
     info:String
     
   });
+  const Donor = mongoose.model('Donor', donorSchema);
+  const Campaign = mongoose.model('Campaign', campaignsSchema);
+  const Group = mongoose.model('Group', groupsSchema);
+  
   module.exports = {
-    Donor: mongoose.model('Donor', donorSchema),
-    Campaign: mongoose.model('Campaign', campaignsSchema),
-    Group: mongoose.model('Group', groupsSchema),
+    Donor,
+    Campaign,
+    Group,
   };
