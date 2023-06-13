@@ -9,6 +9,20 @@ campaignsRouter.get('/:campaignId', (req, res) => {
   // Return the campaign details
   res.json(campaignDetails);
 });
+campaignsRouter.post('/', (req, res) => {
+  // Create a new donor
+  // Return response
+});
+
+campaignsRouter.get('/:id', (req, res) => {
+  // Get a specific donor by ID
+  // Return response
+});
+
+campaignsRouter.put('/:id', (req, res) => {
+  // Update a specific donor by ID
+  // Return response
+});
 
 // Route for updating campaign destination
 campaignsRouter.patch('/:campaignId', (req, res) => {

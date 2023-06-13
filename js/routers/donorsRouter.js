@@ -5,28 +5,25 @@ const donorsRouter = express.Router();
 donorsRouter.get('/', (req, res) => {
   // Retrieve campaign donors and contributions from the database
   // ...
-
+  console.log("hi Donors")
+  const donors = database.getDonors(); // Replace with your actual database query or operation
    // Return the campaign donors and contributions
    res.json(donors);
  });
-// router.get('/', (req, res) => {
-//   // Get all donors
-//   // Return response
-// });
 
-// router.post('/', (req, res) => {
-//   // Create a new donor
-//   // Return response
-// });
+ donorsRouter.post('/', (req, res) => {
+  console.log("hi")
 
-// router.get('/:id', (req, res) => {
-//   // Get a specific donor by ID
-//   // Return response
-// });
+  // Create a new donor
+  // Return response
+});
 
-// router.put('/:id', (req, res) => {
-//   // Update a specific donor by ID
-//   // Return response
-// });
+donorsRouter.get('/:id', (req, res) => {
+  // Get a specific donor by ID
+  console.log("hi")
+  // Return response
+});
+
+
 
 module.exports = donorsRouter;
