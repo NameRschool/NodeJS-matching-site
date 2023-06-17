@@ -1,4 +1,4 @@
-const { Donor, Campaign, Group } = require('./../functions/schema');
+const { Donor, Campaign, Group } = require('../models/schema');
 const express = require('express');
 const donorsRouter = express.Router();
 
