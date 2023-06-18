@@ -3,10 +3,13 @@ const Group = require('../models/Group')
 
 class GroupRepo {
     constructor() {
+        
+        
         db.connect();
     }
 
     async getAll() {
+        
         return await Group.find({});
     }
     async getById() {

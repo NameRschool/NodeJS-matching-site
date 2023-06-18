@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const campaignsSchema = new Schema({
+const campaignsSchema = mongoose.Schema({
     id:String,
     date: Date,
     destination: String,

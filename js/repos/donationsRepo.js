@@ -3,7 +3,7 @@ const Donations = require('../models/Donations')
 
 class DonationsRepo {
     constructor() {
-        db.connect();
+        db.connect(); 
     }
 
     async getAll() {

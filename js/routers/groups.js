@@ -15,10 +15,12 @@ groupsRouter.post('/', async (req, res) => {
 });
 
 groupsRouter.get('/', async (req, res) => {
+ 
   try {
-    let allGroups = await GroupService.getAll();
-    console.log('Retrieved groups:', allGroups);
-    res.json(allGroups);
+    
+    const groups = await GroupService.getAll();
+    console.log('Retrieved groups:', groups);
+    res.json(groups);
   } catch (error) {
     console.error('Failed to retrieve groups', error);
     res.status(500).json({ error: 'Failed to retrieve groups' });

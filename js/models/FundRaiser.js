@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const fundRaiserSchema = new Schema({
+const fundRaiserSchema = mongoose.Schema({
     id:String,
     groupsId:String,
     name: String,

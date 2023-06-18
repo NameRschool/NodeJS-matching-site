@@ -1,7 +1,7 @@
-
-const { Donor, Campaign, Group } = require('../models/schema');
 const express = require('express');
 const CampaignsRouter = express.Router();
+const CampaignService=require('../services/camoaignService');
+
 
 CampaignsRouter.post('/', async (req, res) => {
   try {
@@ -18,7 +18,8 @@ CampaignsRouter.post('/', async (req, res) => {
 CampaignsRouter.get('/', async (req, res) => {
   
   try {
-    const campaigns = await Campaign.find({},'date destination time');
+    debugger
+    const campaigns = await CampaignService.getAll();
     console.log('Retrieved campaigns:', campaigns);
     res.json(campaigns);
   } catch (error) {

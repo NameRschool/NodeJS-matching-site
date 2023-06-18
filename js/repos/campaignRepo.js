@@ -7,8 +7,9 @@ class CampaignRepo {
     }
 
     async getAll() {
-        return await Campaign.find({}).limit(10);
-    }
+        debugger
+        return await Campaign.find({});
+}
     async getById() {
         return await Campaign.find({age:5});
     }

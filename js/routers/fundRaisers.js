@@ -20,13 +20,13 @@ fundRaiserRouter.post('/', async (req, res) => {
 
 fundRaiserRouter.get('/', async (req, res) => {
   try {
-    console.log("nn")
-    const donors = await FundRaiserService.getAll();
-    console.log('Retrieved donors:', donors);
-    res.json(donors);
+    
+    const FundRaisers = await FundRaiserService.getAll();
+    console.log('Retrieved FundRaiser:', FundRaisers);
+    res.json(FundRaisers);
   } catch (error) {
-    console.error('Failed to retrieve donors', error);
-    res.status(500).json({ error: 'Failed to retrieve donors' });
+    console.error('Failed to retrieve Fund Raisers', error);
+    res.status(500).json({ error: 'Failed to retrieve Fund Raisers' });
   }
 });
 
