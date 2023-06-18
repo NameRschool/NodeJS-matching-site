@@ -1,10 +1,11 @@
-const { Donor, Campaign, Group } = require('../models/schema');
 const express = require('express');
-const donorsRouter = express.Router();
+const FundRaiserService = require('../services/fundRaiserService');
+const fundRaiserRouter = express.Router();
 
 
 
-donorsRouter.post('/', async (req, res) => {
+
+fundRaiserRouter.post('/', async (req, res) => {
   try {
    
     const newDonor = new Donor(req.body);
@@ -17,10 +18,10 @@ donorsRouter.post('/', async (req, res) => {
   }
 });
 
-donorsRouter.get('/', async (req, res) => {
+fundRaiserRouter.get('/', async (req, res) => {
   try {
     console.log("nn")
-    const donors = await Group.find();
+    const donors = await FundRaiserService.getAll();
     console.log('Retrieved donors:', donors);
     res.json(donors);
   } catch (error) {
@@ -29,7 +30,7 @@ donorsRouter.get('/', async (req, res) => {
   }
 });
 
-donorsRouter.put('/:id', async (req, res) => {
+fundRaiserRouter.put('/:id', async (req, res) => {
   try {
     const query = { _id: req.params.id };
     const update = req.body;
@@ -42,7 +43,7 @@ donorsRouter.put('/:id', async (req, res) => {
   }
 });
 
-donorsRouter.delete('/:id', async (req, res) => {
+fundRaiserRouter.delete('/:id', async (req, res) => {
   try {
     const query = { _id: req.params.id };
     await Donor.deleteOne(query);
@@ -54,7 +55,7 @@ donorsRouter.delete('/:id', async (req, res) => {
   }
 });
 
-module.exports = donorsRouter;
+module.exports = fundRaiserRouter;
 
 
 

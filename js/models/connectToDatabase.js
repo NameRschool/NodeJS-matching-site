@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.DATABASE_URL, {
+    await mongoose.connect('mongodb+srv://rf:MYpasswordDB@homecluster.dfm7sgf.mongodb.net/?retryWrites=true&w=majority ',{
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

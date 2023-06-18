@@ -1,6 +1,6 @@
-const { Donor, Campaign, Group } = require('../models/schema');
 const express = require('express');
 const groupsRouter = express.Router();
+const GroupService=require('../services/groupService');
 
 groupsRouter.post('/', async (req, res) => {
   try {
@@ -16,9 +16,9 @@ groupsRouter.post('/', async (req, res) => {
 
 groupsRouter.get('/', async (req, res) => {
   try {
-    const groups = await Group.find();
-    console.log('Retrieved groups:', groups);
-    res.json(groups);
+    let allGroups = await GroupService.getAll();
+    console.log('Retrieved groups:', allGroups);
+    res.json(allGroups);
   } catch (error) {
     console.error('Failed to retrieve groups', error);
     res.status(500).json({ error: 'Failed to retrieve groups' });
