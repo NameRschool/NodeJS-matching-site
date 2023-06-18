@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const connect = async () => {
   // await mongoose.connect(process.env.DATABASE_URL)
   // console.log('Connected to MongoDB');
-
+//'mongodb+srv://rf:MYpasswordDB@homecluster.dfm7sgf.mongodb.net/nodeJSprojectDB '
   try {
     await mongoose.connect('mongodb+srv://rf:MYpasswordDB@homecluster.dfm7sgf.mongodb.net/nodeJSprojectDB ',{
       useNewUrlParser: true,

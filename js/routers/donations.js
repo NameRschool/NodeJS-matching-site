@@ -23,7 +23,7 @@ donationsRouter.get('/', async (req, res) => {
   
     const donations = await DonationsService.getAll();
     console.log('Retrieved donations:', donations);
-    res.json(donors);
+    res.json(donations);
   } catch (error) {
     console.error('Failed to retrieve donations', error);
     res.status(500).json({ error: 'Failed to retrieve donations' });

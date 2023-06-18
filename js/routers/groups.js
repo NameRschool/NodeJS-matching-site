@@ -4,13 +4,14 @@ const GroupService=require('../services/groupService');
 
 groupsRouter.post('/', async (req, res) => {
   try {
-    const newGroup = new Group(req.body);
-    await newGroup.save();
-    console.log('Group saved successfully');
-    res.json(newGroup);
+    const groupData = req.body;
+
+    const savedGroup = await GroupService.createGroup(groupData);
+
+    res.status(201).json(savedGroup);
   } catch (error) {
-    console.error('Failed to save group', error);
-    res.status(500).json({ error: 'Failed to save group' });
+    console.error('Failed to create group', error);
+    res.status(500).json({ error: 'Failed to create group' });
   }
 });
 
