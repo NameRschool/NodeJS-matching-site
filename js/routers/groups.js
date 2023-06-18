@@ -18,7 +18,7 @@ groupsRouter.post('/', async (req, res) => {
 groupsRouter.get('/', async (req, res) => {
  
   try {
-    
+    debugger
     const groups = await GroupService.getAll();
     console.log('Retrieved groups:', groups);
     res.json(groups);

@@ -2,6 +2,7 @@ const GroupRepo = require('../repos/groupRepo');
 //BL
 class GroupService {
     async getAll() {
+        debugger
         return await GroupRepo.getAll();
     }
     async createGroup(groupData) {

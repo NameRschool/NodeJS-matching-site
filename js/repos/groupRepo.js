@@ -9,7 +9,7 @@ class GroupRepo {
     }
 
     async getAll() {
-        
+        debugger
         return await Group.find({});
     }
     async getById() {
