@@ -1,5 +1,5 @@
 const db = require('../models/connectToDatabase');
-const FundRaiser = require('../models/FundRaiser')
+const fundRaiser = require('../models/fundRaiser')
 
 class FundRaiserRepo {
     constructor() {
@@ -7,10 +7,10 @@ class FundRaiserRepo {
     }
 
     async getAll() {
-        return await FundRaiser.find({}).limit(10);
+        return await fundRaiser.find({}).limit(10);
     }
     async getById() {
-        return await FundRaiser.find({age:5});
+        return await fundRaiser.find({age:5});
     }
 
 }

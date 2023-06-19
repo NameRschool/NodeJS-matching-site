@@ -1,9 +1,9 @@
-const CampaignRepo = require('../../repos/campaignRepo')
+const campaignRepo = require('../repos/campaignRepo')
 //BL
 class CampaignService {
     async getAll() {
-        debugger
-        return await CampaignRepo.getAll();
+        
+        return await campaignRepo.getAll();
     }
 }
 

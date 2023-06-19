@@ -1,9 +1,8 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-const port = process.env.PORT || 3000;
-// const port =3000;
-//const mongoose = require('mongoose');
+//const port = process.env.PORT || 3000;
+ const port =3000;
 
 const groupsRouter = require('./routers/groups');
 const donationsRouter = require('./routers/donations');

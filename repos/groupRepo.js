@@ -1,5 +1,5 @@
 const db = require('../models/connectToDatabase');
-const Group = require('../models/Group')
+const group = require('../models/group');
 
 class GroupRepo {
     constructor() {
@@ -10,10 +10,10 @@ class GroupRepo {
 
     async getAll() {
         debugger
-        return await Group.find({});
+        return await group.find({});
     }
     async getById() {
-        return await Group.find({age:5});
+        return await group.find({age:5});
     }
     async createGroup(groupData) {
         try {

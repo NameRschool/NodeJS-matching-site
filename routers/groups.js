@@ -1,6 +1,6 @@
 const express = require('express');
 const groupsRouter = express.Router();
-const GroupService=require('../js/services/groupService');
+const GroupService=require('../services/groupService');
 
 groupsRouter.post('/', async (req, res) => {
   try {

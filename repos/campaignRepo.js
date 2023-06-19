@@ -1,5 +1,5 @@
 const db = require('../models/connectToDatabase');
-const Campaign = require('../models/Campaign')
+const campaign = require('../models/campaign')
 
 class CampaignRepo {
     constructor() {
@@ -8,10 +8,10 @@ class CampaignRepo {
 
     async getAll() {
         debugger
-        return await Campaign.find({});
+        return await campaign.find({});
 }
     async getById() {
-        return await Campaign.find({age:5});
+        return await campaign.find({age:5});
     }
 
 }

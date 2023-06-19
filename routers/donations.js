@@ -1,5 +1,5 @@
 const express = require('express');
-const DonationsService = require('../js/services/donationService');
+const DonationsService = require('../services/donationService');
 const donationsRouter = express.Router();
 
 

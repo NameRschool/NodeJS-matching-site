@@ -1,13 +1,12 @@
-const GroupRepo = require('../../repos/groupRepo');
+const groupRepo = require('../repos/groupRepo');
 //BL
 class GroupService {
     async getAll() {
         debugger
-        return await GroupRepo.getAll();
+        return await groupRepo.getAll();
     }
     async createGroup(groupData) {
-        return await GroupRepo.createGroup(groupData);
-
+        return await groupRepo.createGroup(groupData);
       }
 }
 
