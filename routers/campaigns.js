@@ -1,6 +1,6 @@
 const express = require('express');
 const CampaignsRouter = express.Router();
-const CampaignService=require('../services/camoaignService');
+const CampaignService=require('../js/services/camoaignService');
 
 
 CampaignsRouter.post('/', async (req, res) => {

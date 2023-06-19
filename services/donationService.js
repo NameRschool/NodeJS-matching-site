@@ -1,4 +1,4 @@
-const DonationsRepo = require('../repos/donationsRepo');
+const DonationsRepo = require('../../repos/donationsRepo');
 //BL
 class DonationsService {
     async getAll() {

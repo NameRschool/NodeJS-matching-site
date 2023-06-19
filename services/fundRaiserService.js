@@ -1,4 +1,4 @@
-const FundRaiserRepo = require('../repos/fundRaiserRepo');
+const FundRaiserRepo = require('../../repos/fundRaiserRepo');
 //BL
 class FundRaiserService {
     async getAll() {

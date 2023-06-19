@@ -1,4 +1,4 @@
-const GroupRepo = require('../repos/groupRepo');
+const GroupRepo = require('../../repos/groupRepo');
 //BL
 class GroupService {
     async getAll() {

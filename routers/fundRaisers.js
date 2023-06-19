@@ -1,5 +1,5 @@
 const express = require('express');
-const FundRaiserService = require('../services/fundRaiserService');
+const FundRaiserService = require('../js/services/fundRaiserService');
 const fundRaiserRouter = express.Router();
 
 
