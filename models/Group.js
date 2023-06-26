@@ -1,11 +1,22 @@
 const mongoose = require('mongoose');
 
 const groupsSchema = mongoose.Schema({
-    id:String,
-    campaignId:String,
-    name: String,
-    destination: String,
-    info:String
+    _id:{
+      type: String, 
+      required: false,
+    },
+    name: {
+      type: String, 
+      required: true,
+    },
+    destination:{
+      type: String, 
+      required: true,
+    },
+    info:{
+      type: String, 
+      required: true,
+    }
   });
-
+  
   module.exports = mongoose.model('groups', groupsSchema);
