@@ -1,7 +1,6 @@
 const express = require('express');
 const CampaignsRouter = express.Router();
 const CampaignService = require('../services/camoaignService');
-const camoaignService = require('../services/camoaignService');
 
 CampaignsRouter.get('/', async (req, res) => {
   try {
@@ -65,12 +64,12 @@ CampaignsRouter.post('/', async (req, res) => {
 CampaignsRouter.delete('/:id', async (req, res) => {
   try {
     const campaignId = req.params.id;
-    const campaign = await camoaignService.getById(campaignId);
+    const campaign = await CampaignService.getById(campaignId);
     if (!campaign) {
       console.error('The id does not exist');
       return res.status(400).json({ error: 'The id does not exist' });
     }
-    await camoaignService.deleteById(campaignId);
+    await CampaignService.deleteById(campaignId);
     console.log('Campaign deleted successfully');
     res.json({ message: 'Campaign deleted successfully' });
   } catch (error) {
@@ -84,7 +83,7 @@ CampaignsRouter.put('/:id', async (req, res) => {
   const  id  = req.params.id;
   const  destination  = req.body.destination;
   try {
-    const campaign = await camoaignService.getById(id);
+    const campaign = await CampaignService.getById(id);
     if (!campaign) {
       console.error('The id does not exist');
       return res.status(400).json({ error: 'The id does not exist' });

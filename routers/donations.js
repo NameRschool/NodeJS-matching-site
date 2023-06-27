@@ -3,24 +3,8 @@ const DonationsService = require('../services/donationService');
 const donationsRouter = express.Router();
 
 
-
-
-donationsRouter.post('/', async (req, res) => {
-  try {
-   
-    const newDonor = new Donor(req.body);
-    await newDonor.save();
-    console.log('Donor saved successfully');
-    res.json(newDonor);
-  } catch (error) {
-    console.error('Failed to save donor', error);
-    res.status(500).json({ error: 'Failed to save donor' });
-  }
-});
-
 donationsRouter.get('/', async (req, res) => {
   try {
-  
     const donations = await DonationsService.getAll();
     console.log('Retrieved donations:', donations);
     res.json(donations);
@@ -30,30 +14,77 @@ donationsRouter.get('/', async (req, res) => {
   }
 });
 
-donationsRouter.put('/:id', async (req, res) => {
+
+donationsRouter.get('/:id', async (req, res) => {
+  const id = req.params.id;
   try {
-    const query = { _id: req.params.id };
-    const update = req.body;
-    await Donor.updateOne(query, update);
-    console.log('Donor updated successfully');
-    res.json({ message: 'Donor updated successfully' });
+    const donation = await DonationsService.getById(id);
+    if (donation === null) {
+      console.error('The id does not exist');
+      return res.status(404).json({ error: 'The id does not exist' });
+    }
+    console.log('Retrieved donation:', donation);
+    res.json(donation);
   } catch (error) {
-    console.error('Failed to update donor', error);
-    res.status(500).json({ error: 'Failed to update donor' });
+    console.error('Failed to retrieve donation', error);
+    res.status(500).json({ error: 'Failed to retrieve donation' });
+  }
+});
+
+donationsRouter.get('/raiserId/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const donation = await DonationsService.getByraiserId(id);
+    if (donation === null) {
+      console.error('The id does not exist');
+      return res.status(404).json({ error: 'The id does not exist' });
+    }
+    console.log('Retrieved donation:', donation);
+    res.json(donation);
+  } catch (error) {
+    console.error('Failed to retrieve donation', error);
+    res.status(500).json({ error: 'Failed to retrieve donation' });
+  }
+});
+
+donationsRouter.post('/', async (req, res) => {
+  const { _id, raiserId, amount, dateTime, donor } = req.body;
+
+  try {
+    const existingdonation = await DonationsService.getById(_id);
+    if (existingdonation) {
+      console.error('donation with the provided ID already exists');
+      return res.status(400).json({ error: 'donation with the provided ID already exists' });
+    }
+    const createdDonation = await DonationsService.create({ _id, raiserId, amount, dateTime, donor });
+    console.log('Donation saved successfully');
+    res.json(createdDonation);
+  } catch (error) {
+    console.error('Failed to save donation', error);
+    res.status(500).json({ error: 'Failed to save donation' });
   }
 });
 
 donationsRouter.delete('/:id', async (req, res) => {
   try {
-    const query = { _id: req.params.id };
-    await Donor.deleteOne(query);
-    console.log('Donor deleted successfully');
-    res.json({ message: 'Donor deleted successfully' });
+    const donationId = req.params.id;
+    const donation = await DonationsService.getById(donationId );
+    if (!donation) {
+      console.error('The id does not exist');
+      return res.status(400).json({ error: 'The id does not exist' });
+    }
+    await DonationsService.deleteById(donationId);
+    console.log('Donation deleted successfully');
+    res.json({ message: 'Donation deleted successfully' });
   } catch (error) {
-    console.error('Failed to delete donor', error);
-    res.status(500).json({ error: 'Failed to delete donor' });
+    console.error('Failed to delete donation', error);
+    res.status(500).json({ error: 'Failed to delete donation' });
   }
 });
+
+
+
+
 
 module.exports = donationsRouter;
 

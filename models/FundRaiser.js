@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const fundRaiserSchema = mongoose.Schema({
-    id:String,
+    _id:String,
     groupsId:String,
     name: String,
     email: String,

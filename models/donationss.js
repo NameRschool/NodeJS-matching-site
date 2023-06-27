@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const donationSchema = mongoose.Schema({
-    id:String,
+    _id:String,
     raiserId:String,
-    amount:String,
-    dateTime:String,
+    amount:Number,
+    dateTime:Date,
     donor:String
   });
 

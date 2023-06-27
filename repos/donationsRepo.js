@@ -7,10 +7,42 @@ class DonationsRepo {
     }
 
     async getAll() {
-        return await donations.find({}).limit(10);
+        try {
+            return await donations.find({})
+        } catch (error) {
+            console.error(`error:${error}`)
+        }
     }
-    async getById() {
-        return await donations.find({age:5});
+    async getById(id) {
+        try {
+            return await donations.findById(id);
+        } catch (error) {
+            console.error(`error:${error}`)
+        }
+    }
+    async getByraiserId(id) {
+        try {
+            return await donations.find({raiserId:id});
+        } catch (error) {
+            console.error(`error:${error}`)
+        }
+    }
+    async create(info) {
+        try {
+            return await donations.create(info);
+            
+        } catch (error) {
+            console.error(`error:${error}`)
+        }
+    }
+  
+  
+    async deleteById(id) {
+        try {
+            return await donations.findByIdAndRemove(id);
+        } catch (error) {
+            console.error(`error:${error}`)
+        }
     }
 
 }
