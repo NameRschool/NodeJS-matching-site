@@ -1,6 +1,7 @@
 const express = require('express');
 const FundRaiserService = require('../services/fundRaiserService');
 const fundRaiserRouter = express.Router();
+const { v4: uuidv4 } = require('uuid');
 
 
 
@@ -50,7 +51,8 @@ fundRaiserRouter.get('/groupId/:id', async (req, res) => {
 });
 
 fundRaiserRouter.post('/', async (req, res) => {
-  const { _id, groupsId, amonameunt, email, destination, TotalSoFar, info } = req.body;
+  const {  groupsId, amonameunt, email, destination, TotalSoFar, info } = req.body;
+  const _id = uuidv4();
   try {
     const existingfundRaiser = await FundRaiserService.getById(_id);
     if (existingfundRaiser) {
@@ -97,7 +99,7 @@ fundRaiserRouter.put('/:user/:id', async (req, res) => {
       console.error('Unauthorized: Only the fund Raiser can update the destination');
       return res.status(401).json({ error: 'Unauthorized: Only the fund Raiser can update the destination' });
     }
-    const updatedFundRaiser = await FundRaiserService.update(id, destination);  
+    const updatedFundRaiser = await FundRaiserService.update(id, {destination});  
       console.log('updeted group:', updatedFundRaiser);
     res.json(updatedFundRaiser);
   } catch (error) {
@@ -108,14 +110,14 @@ fundRaiserRouter.put('/:user/:id', async (req, res) => {
 
 fundRaiserRouter.put('/:id', async (req, res) => {
   const id = req.params.id;
-  const TotalSoFar = req.body.destination;
+  const TotalSoFar = req.body.TotalSoFar;
   try {
     const fundRaiser = await FundRaiserService.getById(id);
     if (!fundRaiser) {
       console.error('The id does not exist');
       return res.status(400).json({ error: 'The id does not exist' });
     }
-    const updatedFundRaiser = await FundRaiserService.update(id, TotalSoFar);  
+    const updatedFundRaiser = await FundRaiserService.update(id, {TotalSoFar});  
       console.log('updeted group:', updatedFundRaiser);
     res.json(updatedFundRaiser);
   } catch (error) {

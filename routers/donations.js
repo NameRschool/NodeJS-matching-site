@@ -1,6 +1,8 @@
 const express = require('express');
+const FundRaiserService=require('../services/fundRaiserService')
 const DonationsService = require('../services/donationService');
 const donationsRouter = express.Router();
+const { v4: uuidv4 } = require('uuid');
 
 
 donationsRouter.get('/', async (req, res) => {
@@ -48,16 +50,26 @@ donationsRouter.get('/raiserId/:id', async (req, res) => {
 });
 
 donationsRouter.post('/', async (req, res) => {
-  const { _id, raiserId, amount, dateTime, donor } = req.body;
-
+  const {  raiserId, amount,  donor } = req.body;
+  const _id = uuidv4();;
   try {
+
     const existingdonation = await DonationsService.getById(_id);
     if (existingdonation) {
       console.error('donation with the provided ID already exists');
       return res.status(400).json({ error: 'donation with the provided ID already exists' });
     }
+    const dateTime = new Date().toISOString();
     const createdDonation = await DonationsService.create({ _id, raiserId, amount, dateTime, donor });
     console.log(`Donation saved successfully:\n amount donation- ${createdDonation.amount}$\n from-${createdDonation.donor}`);
+    const fundRaiser = await FundRaiserService.getById(raiserId);
+    if (!fundRaiser) {
+      console.error('The fund raiser does not exist');
+      return res.status(400).json({ error: 'The fund raiser does not exist' });
+    }
+    const updatedTotalSoFar = parseInt(fundRaiser.TotalSoFar) + parseInt(amount);
+    const updatedFundRaiser = await FundRaiserService.update(raiserId, { TotalSoFar: updatedTotalSoFar });
+    console.log('Updated fund raiser:', updatedFundRaiser);
     res.json(createdDonation);
   } catch (error) {
     console.error('Failed to save donation', error);

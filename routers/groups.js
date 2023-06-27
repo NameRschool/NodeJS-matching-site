@@ -1,6 +1,7 @@
 const express = require('express');
 const groupsRouter = express.Router();
 const GroupService=require('../services/groupService');
+const { v4: uuidv4 } = require('uuid');
 
 
 groupsRouter.get('/', async (req, res) => {
@@ -51,17 +52,18 @@ groupsRouter.put('/:id', async (req, res) => {
 });
 groupsRouter.post('/', async (req, res) => {
   const {
-    _id,
     name,
     destination,
     info
   } = req.body;
+  const _id = uuidv4();
   try {
     const existinggroup = await GroupService.getById(_id);
     if (existinggroup) {
       console.error('group with the provided ID already exists');
       return res.status(400).json({ error: 'group with the provided ID already exists' });
     }
+    
     const createdGroup = await GroupService.create({
       _id,
       name,

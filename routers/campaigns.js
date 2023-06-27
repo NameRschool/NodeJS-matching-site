@@ -1,6 +1,7 @@
 const express = require('express');
 const CampaignsRouter = express.Router();
 const CampaignService = require('../services/camoaignService');
+const { v4: uuidv4 } = require('uuid');
 
 CampaignsRouter.get('/', async (req, res) => {
   try {
@@ -33,12 +34,11 @@ CampaignsRouter.get('/:id', async (req, res) => {
 
 CampaignsRouter.post('/', async (req, res) => {
   const {
-    _id,
     destination,
     data,
-    datetime,
     managerName
   } = req.body;
+  const _id = uuidv4();
 
   try {
     const existingCampaign = await CampaignService.getById(_id);
@@ -46,6 +46,7 @@ CampaignsRouter.post('/', async (req, res) => {
       console.error('Campaign with the provided ID already exists');
       return res.status(400).json({ error: 'Campaign with the provided ID already exists' });
     }
+    const datetime = new Date().toISOString();
     const createdCampaign = await CampaignService.create({
       _id,
       destination,
