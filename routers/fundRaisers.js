@@ -83,25 +83,40 @@ fundRaiserRouter.delete('/:id', async (req, res) => {
   }
 });
 
-fundRaiserRouter.put('/:id', async (req, res) => {
+fundRaiserRouter.put('/:user/:id', async (req, res) => {
+  const user=req.params.user;
   const id = req.params.id;
-  const {destination,TotalSoFar} = req.body.destination;
+  const destination = req.body.destination;
   try {
     const fundRaiser = await FundRaiserService.getById(id);
     if (!fundRaiser) {
       console.error('The id does not exist');
       return res.status(400).json({ error: 'The id does not exist' });
     }
-
-    const updateFields = {};
-    if (destination) {
-      updateFields.destination = destination;
+    if(user!=fundRaiser.name){
+      console.error('Unauthorized: Only the fund Raiser can update the destination');
+      return res.status(401).json({ error: 'Unauthorized: Only the fund Raiser can update the destination' });
     }
-    if (TotalSoFar) {
-      updateFields.TotalSoFar = TotalSoFar;
-    }
+    const updatedFundRaiser = await FundRaiserService.update(id, destination);  
+      console.log('updeted group:', updatedFundRaiser);
+    res.json(updatedFundRaiser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
-    const updatedFundRaiser = await FundRaiserService.update(id, updateFields);    console.log('updeted group:', updatedFundRaiser);
+fundRaiserRouter.put('/:id', async (req, res) => {
+  const id = req.params.id;
+  const TotalSoFar = req.body.destination;
+  try {
+    const fundRaiser = await FundRaiserService.getById(id);
+    if (!fundRaiser) {
+      console.error('The id does not exist');
+      return res.status(400).json({ error: 'The id does not exist' });
+    }
+    const updatedFundRaiser = await FundRaiserService.update(id, TotalSoFar);  
+      console.log('updeted group:', updatedFundRaiser);
     res.json(updatedFundRaiser);
   } catch (error) {
     console.error(error);

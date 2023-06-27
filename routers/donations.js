@@ -57,7 +57,7 @@ donationsRouter.post('/', async (req, res) => {
       return res.status(400).json({ error: 'donation with the provided ID already exists' });
     }
     const createdDonation = await DonationsService.create({ _id, raiserId, amount, dateTime, donor });
-    console.log('Donation saved successfully');
+    console.log(`Donation saved successfully:\n amount donation- ${createdDonation.amount}$\n from-${createdDonation.donor}`);
     res.json(createdDonation);
   } catch (error) {
     console.error('Failed to save donation', error);
